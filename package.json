@@ -1,17 +1,24 @@
 {
-  "name": "mongo-playground-react",
+  "name": "react-electron",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
+  "main": "public/electron.js",
   "dependencies": {
+    "electron-is-dev": "^1.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "yarn build",
+    "electron-pack": "build -w"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -21,5 +28,34 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.10",
+    "@rescripts/rescript-env": "^0.0.10",
+    "concurrently": "^4.1.0",
+    "electron": "^4.1.0",
+    "electron-builder": "^20.39.0",
+    "typescript": "^3.3.3333",
+    "wait-on": "^3.2.0"
+  },
+  "author": {
+    "name": "Nir Adler",
+    "email": "apps@niradler.com",
+    "url": "https://niradler.com"
+  },
+  "build": {
+    "appId": "com.niradler.mongo-playground",
+    "productName": "MongoPlayground",
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  }
 }
